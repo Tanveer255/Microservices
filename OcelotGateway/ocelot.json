@@ -1,0 +1,188 @@
+{
+  "Routes": [
+    // ==========================
+    // Auth Service Routes
+    // ==========================
+    {
+      "DownstreamPathTemplate": "/api/users/login",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+        }
+      ],
+      "UpstreamPathTemplate": "/users/login",
+      "UpstreamHttpMethod": [ "POST" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/users",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5228
+        }
+      ],
+      "UpstreamPathTemplate": "/users",
+      "UpstreamHttpMethod": [ "GET" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    // ==========================
+    // CRM Service Routes
+    // ==========================
+    {
+      "DownstreamPathTemplate": "/api/contacts/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5295
+        }
+      ],
+      "UpstreamPathTemplate": "/contacts/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    // ==========================
+    // Document Service Routes
+    // ==========================
+    {
+      "DownstreamPathTemplate": "/api/saleOrders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "UpstreamPathTemplate": "/saleOrders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/customsDeclarations/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "UpstreamPathTemplate": "/customsDeclarations/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/instalationOrders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "UpstreamPathTemplate": "/instalationOrders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/Orders/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "UpstreamPathTemplate": "/Orders/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/PackingLists/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5280
+        }
+      ],
+      "UpstreamPathTemplate": "/PackingLists/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    // ==========================
+    // Product Service Routes
+    // ==========================
+    {
+      "DownstreamPathTemplate": "/api/products/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5000
+        }
+      ],
+      "UpstreamPathTemplate": "/products/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "RetryOptions": {
+        "Attempts": 3,
+        "Interval": 1000
+      }
+    },
+    // ==========================
+    // SWAN Service Routes
+    // ==========================
+    {
+      "DownstreamPathTemplate": "/api/company/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5058
+        }
+      ],
+      "UpstreamPathTemplate": "/company/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ]
+    }
+
+
+  ],
+
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:7121",
+    "Cors": {
+      "AllowAnyOrigin": false,
+      "AllowedOrigins": [ "http://localhost:58763" ],
+      "AllowAnyMethod": true,
+      "AllowAnyHeader": true
+    }
+  }
+
+}

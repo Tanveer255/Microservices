@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CommonHealthCheck\CommonHealthCheck.csproj" />
+    <ProjectReference Include="..\SWANService.BLL\SWANService.BLL.csproj" />
+    <ProjectReference Include="..\SWANService.DAL\SWANService.DAL.csproj" />
+    <ProjectReference Include="..\SWANService.Entity\SWANService.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

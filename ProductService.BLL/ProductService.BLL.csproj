@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ProductService.DAL\ProductService.DAL.csproj" />
+    <ProjectReference Include="..\ProductService.Entity\ProductService.Entity.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,125 @@
+services:
+  # ocelot-gateway:
+  ocelot-gateway:
+    build:
+      context: .
+      dockerfile: OcelotGateWay/Dockerfile
+    container_name: ocelot-gateway
+    ports:
+      - "8081:8080"
+    networks:
+      - microservice_default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8081/
+      - ASPNETCORE_ENVIRONMENT=Development
+
+  # auth-server:
+  auth-server:
+    build:
+      context: .
+      dockerfile: AuthServer/Dockerfile
+    container_name: auth-server
+    ports:
+      - "8082:8080"
+    networks:
+      - microservice_default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8082/
+      - ASPNETCORE_ENVIRONMENT=Development
+     # - ConnectionStrings__DefaultConnection=Server=127.0.0.1;Port=3306;Database=microservice_AuthServer_dev_db;User=microservice;Password=ko7Mar^e8cAQc;
+     
+      # Use root/example as user/password credentials
+  auth-server-db:
+    image: mysql:latest
+    restart: always
+    container_name: auth-server-db
+    environment:
+      MYSQL_ROOT_PASSWORD: Letmein123$
+      MYSQL_DATABASE: microservice_AuthServer_dev_db
+      MYSQL_USER: microservice
+      MYSQL_PASSWORD: ko7Mar^e8cAQc
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+ # service-interface:
+  service-interface:
+    build:
+      context: .
+      dockerfile: CRM/Dockerfile
+    container_name: service-interface
+    ports:
+      - "8083:8080"
+    networks:
+      - microservice_default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8083/
+      - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Server=service-interface-db;Database=microservice_CRM_db_dev;User Id=microservice;Password=123456789;MultipleActiveResultSets=True;TrustServerCertificate=True;
+
+
+  # docs-server:
+  docs-server:
+    build:
+      context: .
+      dockerfile: DocsServer/Dockerfile
+    container_name: docs-server
+    ports:
+      - "8084:8080"
+    networks:
+      - microservice_default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8084/
+      - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionStrings__DefaultConnection=Server=docsServer-db;Database=microservice_DocsServer_db_dev;User Id=microservice;Password=123456789;MultipleActiveResultSets=True;TrustServerCertificate=True;
+
+  product-server:
+    build:
+      context: .
+      dockerfile: ProductServer/Dockerfile
+    container_name: product-server
+    ports:
+      - "8085:8080"
+    networks:
+      - microservice_default
+    environment:
+      - ASPNETCORE_URLS=http://0.0.0.0:8085/
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=productServer-db;Database=microservice_ProductServer_db_dev;User Id=microservice;Password=123456789;MultipleActiveResultSets=True;TrustServerCertificate=True;
+
+  # Use a Linux-based SQL Server image:
+  productServer-db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: productServer-db
+    ports:
+      - "1437:1433"
+    networks:
+      - microservice_default
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=StrongPassword!123
+      - MSSQL_PID=Developer
+
+
+ 
+
+  microservice-app:
+    build:
+      context: ./microservice-app 
+      dockerfile: Dockerfile
+    container_name: microservice-app
+    ports:
+      - "64125:64125"
+    volumes:
+      - ./microservice-app:/app  # Map only the 'microservice-app' folder to '/app'
+      - /app/node_modules  # Prevent overwriting node_modules
+    environment:
+      NODE_ENV: development
+    command: ["npm", "run", "dev", "--", "--host"]
+#network
+networks:
+  microservice_default:
+    external: true
+#volumes
+volumes:
+  db_data:

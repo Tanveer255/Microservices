@@ -1,0 +1,6 @@
+@SWANService_HostAddress = http://localhost:5058
+
+GET {{SWANService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
